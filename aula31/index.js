@@ -1,5 +1,6 @@
 const container = document.querySelector("#container");
 const data = new Date();
+const day = data.getDate();
 
 function getWeeklyDay(diaSemana) {
   let diaSemanaTexto;
@@ -59,14 +60,18 @@ function getMonth(numeroMes) {
       nomeMes = "Agosto";
       return nomeMes;
     case 8:
-      nomeMes = "Outubro";
+      nomeMes = "Setembro";
       return nomeMes;
     case 9:
-      nomeMes = "Novembro";
+      nomeMes = "Outubro";
       return nomeMes;
     case 10:
+      nomeMes = "Novembro";
+      return nomeMes;
+    case 11:
       nomeMes = "Dezembro";
       return nomeMes;
   }
 }
-container.innerHTML = `${getWeeklyDay(data.getDay())}`;
+
+container.innerHTML = `${getWeeklyDay(data.getDay())}, ${day} de ${getMonth(data.getMonth())}`;

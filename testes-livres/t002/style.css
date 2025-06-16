@@ -66,17 +66,40 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.check {
+    width: 1rem;
+    height: 1rem;
+}
+
+.divCheck {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.checked{
+    text-decoration-line: line-through;
 }
 
 .tarefa:last-child {
     border-bottom: none;
 }
 
-.tarefa .remover {
+.remover {
     background-color: #f44336;
     padding: 4px 8px;
     font-size: 14px;
+    width: 4.5rem;
+    height: 1.5rem;
 }
 
 .tarefa .remover:hover {

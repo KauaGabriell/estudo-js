@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 100vh;
+    background-color: rgb(9, 9, 63);
+}
+
+.conteudo-principal{
+    padding: 1rem;
+    width: 600px;
+    height: 250px;
+    background-color: rgb(116, 116, 242);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: justify;
+}
+
+.botoes{
+    gap: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+}
+
+button{
+    width: 6rem;
+    height: 2rem;
+}

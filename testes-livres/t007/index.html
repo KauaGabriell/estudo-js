@@ -3,21 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aventura de Texto Interativa</title>
+    <title>🌉 Aventura na Ponte - Jogo Interativo</title>
+    <meta name="description" content="Uma emocionante aventura de texto interativa onde suas escolhas determinam o destino.">
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌉</text></svg>">
   </head>
   <body>
     <div class="conteudo-principal">
-      <p id="texto-cena">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At, minima
-          explicabo? Nemo quos assumenda voluptatem facilis eum fugiat culpa rem
-          itaque vero. Cum, ratione ipsum? Nostrum, consequuntur mollitia. Facilis,
-          officiis.>
-      </p>
-      <div class="botoes">
-        <button>Escolha 01</button>
-        <button>Escolha 02</button>
-      </div>
+      <header class="cabecalho">
+        <h1>🌉 Aventura na Ponte</h1>
+        <p class="subtitulo">Uma jornada de escolhas e consequências</p>
+      </header>
+      
+      <main class="conteudo-jogo">
+        <div class="cena-atual">
+          <p id="texto-cena">
+            Você chega a uma ponte de cordas velha e gasta, balançando perigosamente sobre um abismo profundo e sem fundo aparente. O vento uiva, sacudindo a ponte com força. É a única forma de atravessar para o outro lado.
+          </p>
+        </div>
+        
+        <div class="botoes">
+          <!-- Os botões serão criados dinamicamente pelo JavaScript -->
+        </div>
+      </main>
     </div>
     <script src="main.js"></script>
   </body>

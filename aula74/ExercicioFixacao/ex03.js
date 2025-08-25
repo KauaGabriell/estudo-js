@@ -17,9 +17,7 @@ const prototipoGolem = {
   })
 
 golem.ativar(); 
-
 console.log(golem.material); 
-
 console.log(golem.forca); 
-
 console.log(Object.keys(golem)); 
+

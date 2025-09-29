@@ -5,4 +5,4 @@ function buscarPokemon(pokemon){
     .catch(erro => console.log(erro));
 }
 
-buscarPokemon('pikachu')
+buscarPokemon('charizard')

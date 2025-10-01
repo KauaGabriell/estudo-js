@@ -1,0 +1,9 @@
+[
+    { "id": 1, "nome": "Ana Silva", "email": "ana@email.com", "ativo": true },
+    { "id": 2, "nome": "Bruno Costa", "email": "bruno@email.com", "ativo": false },
+    { "id": 3, "nome": "Carla Dias", "email": "carla@email.com", "ativo": true },
+    { "id": 4, "nome": "Daniel Rocha", "email": "daniel@email.com", "ativo": true },
+    { "id": 5, "nome": "Elisa Ferreira", "email": "elisa@email.com", "ativo": false },
+    { "id": 6, "nome": "Peixe", "email": "elisa@email.com", "ativo": true }
+    
+  ]

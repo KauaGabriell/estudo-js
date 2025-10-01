@@ -1,0 +1,9 @@
+--- Relatório de Usuários Ativos ---
+Data de Geração: 01/10/2025, 14:51:21
+
+ID: 1 | Nome: Ana Silva | Email: ana@email.com
+ID: 3 | Nome: Carla Dias | Email: carla@email.com
+ID: 4 | Nome: Daniel Rocha | Email: daniel@email.com
+ID: 6 | Nome: Peixe | Email: elisa@email.com
+
+Total de Usuários Ativos: 4

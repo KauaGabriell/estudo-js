@@ -24,13 +24,13 @@ const routes = require('./routes');
 
 /** Segurança */
 const helmet = require('helmet');
-const csrf = require('csurf');
 
 /** Import de Middlewares */
 const {
   middlewareGlobal,
   checkCsrfError,
   csrfMiddleware,
+  verifyCsrf,
 } = require('./src/middlewares/middlewareGlobal');
 
 /** "Use" Gerais */
@@ -57,18 +57,17 @@ app.use(flash());
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
-app.use(csrf());
-
 /** Nossos Middlewares */
 app.use(middlewareGlobal);
-app.use(checkCsrfError);
 app.use(csrfMiddleware);
+app.use(verifyCsrf);
+app.use(checkCsrfError);
 app.use(routes);
 
 /** Servidor */
 app.on('On', () => {
-  app.listen(3000, () => {
-    console.log('Acessar http://localhost:3000');
-    console.log('Servidor executando na porta 3000');
+  app.listen(3001, () => {
+    console.log('Acessar http://localhost:3001');
+    console.log('Servidor executando na porta 3001');
   });
 });

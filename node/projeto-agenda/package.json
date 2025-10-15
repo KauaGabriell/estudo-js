@@ -1,5 +1,5 @@
 {
-  "name": "projeto-agenda",
+  "name": "aula16",
   "version": "1.0.0",
   "description": "",
   "main": "routes.js",
@@ -20,16 +20,18 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
     "core-js": "^3.3.2",
+    "csrf": "^3.1.0",
     "css-loader": "^7.1.2",
-    "csurf": "^1.11.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.2",
     "helmet": "^8.1.0",
+    "joi": "^18.0.1",
     "mongoose": "^8.19.1",
     "nodemon": "^3.1.10",
     "regenerator-runtime": "^0.13.3",

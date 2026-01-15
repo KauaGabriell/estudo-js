@@ -13,8 +13,9 @@ class UserController {
   async createUser(req, res) {
     try {
       const novoUser = await User.create(req.body);
-      
-      return res.status(201).json(novoUser);
+      const { id, nome, email } = novoUser;
+
+      return res.status(201).json({ id, nome, email });
     } catch (e) {
       // Tratamento específico de erros do Sequelize
       if (e.name === "SequelizeValidationError") {
@@ -22,7 +23,7 @@ class UserController {
           errors: e.errors.map((err) => err.message),
         });
       }
-      
+
       if (e.name === "SequelizeUniqueConstraintError") {
         return res.status(400).json({
           errors: ["Email já existe"], // Mensagem amigável para o front
@@ -45,8 +46,10 @@ class UserController {
       // PERFORMANCE: Projection (attributes) evita vazamento de password_hash
       const users = await User.findAll({
         attributes: ["id", "nome", "email"],
-        order: [['id', 'DESC']] // Boa prática: Ordenação padrão
+        order: [["id", "DESC"]], // Boa prática: Ordenação padrão
       });
+      console.log("USER ID", req.userId);
+      console.log("User Email", req.userEmail);
       return res.json(users);
     } catch (error) {
       console.error("Erro ao listar usuários:", error);
@@ -62,7 +65,7 @@ class UserController {
   async show(req, res) {
     try {
       const { id } = req.params;
-      
+
       // Busca otimizada por Primary Key com filtro de campos
       const user = await User.findByPk(id, {
         attributes: ["id", "nome", "email"],
@@ -76,8 +79,10 @@ class UserController {
     } catch (e) {
       //Se o erro não for do Sequelize (ex: Banco caiu), e.errors será undefined
       // e causará um crash na aplicação.
-      return res.status(400).json({ 
-        errors: e.errors ? e.errors.map((err) => err.message) : ['Erro desconhecido'] 
+      return res.status(400).json({
+        errors: e.errors
+          ? e.errors.map((err) => err.message)
+          : ["Erro desconhecido"],
       });
     }
   }
@@ -87,8 +92,7 @@ class UserController {
    */
   async update(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({ errors: ["Usuário não encontrado"] });
@@ -96,12 +100,14 @@ class UserController {
 
       // Atualiza a instância e retorna os dados novos automaticamente
       const userAtualizado = await user.update(req.body);
-      
+
       const { id: novoId, nome, email } = userAtualizado;
       return res.json({ id: novoId, nome, email });
     } catch (e) {
-      return res.status(400).json({ 
-        errors: e.errors ? e.errors.map((err) => err.message) : ['Erro na atualização'] 
+      return res.status(400).json({
+        errors: e.errors
+          ? e.errors.map((err) => err.message)
+          : ["Erro na atualização"],
       });
     }
   }
@@ -111,8 +117,7 @@ class UserController {
    */
   async delete(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({ errors: ["Usuário não encontrado"] });
@@ -121,14 +126,15 @@ class UserController {
       // método da instância (user.destroy) ao invés da classe (User.destroy).
       // Isso garante consistência com o objeto já carregado na memória.
       await user.destroy();
-      
+
       return res.json({
         msg: "Usuário deletado com sucesso",
-        id, // Retorna o ID para facilitar a remoção no Front-end
       });
     } catch (e) {
-      return res.status(400).json({ 
-        errors: e.errors ? e.errors.map((err) => err.message) : ['Erro ao deletar'] 
+      return res.status(400).json({
+        errors: e.errors
+          ? e.errors.map((err) => err.message)
+          : ["Erro ao deletar"],
       });
     }
   }

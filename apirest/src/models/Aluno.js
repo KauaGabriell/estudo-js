@@ -31,13 +31,15 @@ export default class Aluno extends Model {
             msg: "Esse email já está vinculado a outro aluno",
           },
           validate: {
-            isEmail: "E-mail deve ser válido",
+            isEmail: {
+              msg: "E-mail deve ser válido",
+            },
             notEmpty: "E-mail não pode ser vazio",
           },
         },
         idade: {
           type: Sequelize.INTEGER,
-          defaultValue: "",
+          defaultValue: null,
           validate: {
             isInt: "Idade precisa ser um número inteiro",
             notEmpty: "Idade não pode ser vazio",
@@ -45,7 +47,7 @@ export default class Aluno extends Model {
         },
         peso: {
           type: Sequelize.FLOAT,
-          defaultValue: "",
+          defaultValue: null,
           validate: {
             isFloat:
               "Peso precisa ser um número inteiro ou de ponto flutuante(Casas Decimais)",
@@ -54,7 +56,7 @@ export default class Aluno extends Model {
         },
         altura: {
           type: Sequelize.FLOAT,
-          defaultValue: "",
+          defaultValue: null,
           validate: {
             isFloat:
               "Altura precisa ser um número inteiro ou de ponto flutuante(Casas Decimais)",

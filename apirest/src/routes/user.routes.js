@@ -4,8 +4,8 @@ import loginRequired from "../middlewares/loginRequired.js";
 
 const router = new Router();
 //Será removido.
-// router.get("/index", UserController.index);
-// router.get("/show/:id", UserController.show);
+// router.get("/", UserController.index);
+// router.get("/:id", UserController.show);
 
 router.post("/", UserController.createUser);
 router.put("/", loginRequired, UserController.update);

@@ -1,3 +1,5 @@
+import { resolve } from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import express from "express";
 import homeRoutes from "./src/routes/home.routes.js";
@@ -10,6 +12,8 @@ dotenv.config();
 
 import "./src/database/index.js";
 
+const __dirname = resolve(fileURLToPath(import.meta.url), "..");
+
 class App {
   constructor() {
     this.app = express();
@@ -20,6 +24,7 @@ class App {
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(express.static(resolve(__dirname, "uploads")));
   }
 
   routes() {

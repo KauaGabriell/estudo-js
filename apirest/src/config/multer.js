@@ -16,8 +16,13 @@ export default {
 
   //  Filtro de Tipo de Arquivo
   fileFilter: (req, file, cb) => {
-    const allowedMimes = ["image/jpeg", "image/pjpeg", "image/png", "image/webp"];
-    
+    const allowedMimes = [
+      "image/jpeg",
+      "image/pjpeg",
+      "image/png",
+      "image/webp",
+    ];
+
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -27,13 +32,13 @@ export default {
 
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, resolve(__dirname, "..", "..", "uploads"));
+      cb(null, resolve(__dirname, "..", "..", "uploads", "images"));
     },
     filename: (req, file, cb) => {
       // UUID para garantir unicidade absoluta
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
-        
+
         const fileName = `${hash.toString("hex")}${extname(file.originalname)}`;
         cb(null, fileName);
       });

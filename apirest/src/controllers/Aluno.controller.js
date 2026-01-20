@@ -1,4 +1,5 @@
 import Aluno from "../models/Aluno.js";
+import Foto from "../models/Foto.js";
 
 /**
  * Controller responsável pelas operações CRUD de `Aluno`.
@@ -20,6 +21,14 @@ class AlunoController {
         "altura",
         "idade",
       ],
+      order: [
+        ["id", "DESC"],
+        [Foto, "id", "DESC"],
+      ],
+      include: {
+        model: Foto,
+        attributes: ["url", "filename"],
+      },
     });
 
     return res.json(alunos);
@@ -58,31 +67,31 @@ class AlunoController {
         return res.status(400).json({ errors: ["ID não enviado"] });
       }
 
-      const aluno = await Aluno.findByPk(id);
+      const aluno = await Aluno.findByPk(id, {
+        attributes: [
+          "id",
+          "nome",
+          "sobrenome",
+          "email",
+          "peso",
+          "altura",
+          "idade",
+        ],
+        order: [
+          ["id", "DESC"],
+          [Foto, "id", "DESC"],
+        ],
+        include: {
+          model: Foto,
+          attributes: ["url", "filename"],
+        },
+      });
 
       if (!aluno) {
         return res.status(404).json({ errors: ["Aluno não encontrado"] });
       }
 
-      const {
-        id: alunoId,
-        nome,
-        sobrenome,
-        email,
-        peso,
-        altura,
-        idade,
-      } = aluno;
-
-      return res.json({
-        id: alunoId,
-        nome,
-        sobrenome,
-        email,
-        peso,
-        altura,
-        idade,
-      });
+      return res.json(aluno);
     } catch (e) {
       if (e && e.errors) {
         return res

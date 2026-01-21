@@ -1,9 +1,9 @@
 import multer from "multer";
 import multerConfig from "../config/multer.js";
-
 import Foto from "../models/Foto.js";
 
 const upload = multer(multerConfig).single("foto");
+
 class FotoController {
   create(req, res) {
     return upload(req, res, async (err) => {
@@ -12,31 +12,30 @@ class FotoController {
       }
 
       try {
-        //Verificação de existência
         if (!req.file) {
           return res.status(400).json({ errors: ['Arquivo não enviado.'] });
         }
 
-        const { originalname, filename } = req.file;
-        const { aluno_id } = req.body; 
+        // NO CLOUDINARY: 'path' contém a URL completa da imagem.
+        const { originalname, path } = req.file;
+        const { aluno_id } = req.body; // Mantido conforme solicitado
 
-        // Chamada correta: Objeto como argumento
-        // await garantido por try/catch
-        const foto = await Foto.create({ 
-          originalname, 
-          filename, 
-          aluno_id
+        const foto = await Foto.create({
+          originalname,
+          // Salvamos a URL do Cloudinary na coluna 'filename' do banco
+          filename: path, 
+          aluno_id,
         });
 
         return res.json(foto);
       } catch (e) {
-        // Tratamento de erro granular
+        console.error(e);
         if (e.name === 'SequelizeValidationError') {
           return res.status(400).json({
             errors: e.errors.map((err) => err.message),
           });
         }
-        return res.status(500).json({ errors: ['Internal Server Error'] });
+        return res.status(500).json({ errors: ['Erro interno do servidor'] });
       }
     });
   }

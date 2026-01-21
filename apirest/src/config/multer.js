@@ -1,47 +1,32 @@
 import multer from "multer";
-import { resolve, extname } from "path";
-import crypto from "crypto";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
-// ✅ Fix para __dirname em ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "alunos_fotos", // Nome da pasta no Cloudinary
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+  },
+});
 
 export default {
-  // Limites de Segurança
-  limits: {
-    fileSize: 2 * 1024 * 1024, // 2MB máximo
-  },
-
-  //  Filtro de Tipo de Arquivo
   fileFilter: (req, file, cb) => {
-    const allowedMimes = [
-      "image/jpeg",
-      "image/pjpeg",
-      "image/png",
-      "image/webp",
-    ];
-
-    if (allowedMimes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Invalid file type."));
+    if (
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/pjpeg" ||
+      file.mimetype === "image/webp"
+    ) {
+      return cb(null, true);
     }
+    return cb(new multer.MulterError("Arquivo precisa ser PNG ou JPG."));
   },
-
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, resolve(__dirname, "..", "..", "uploads", "images"));
-    },
-    filename: (req, file, cb) => {
-      // UUID para garantir unicidade absoluta
-      crypto.randomBytes(16, (err, hash) => {
-        if (err) cb(err);
-
-        const fileName = `${hash.toString("hex")}${extname(file.originalname)}`;
-        cb(null, fileName);
-      });
-    },
-  }),
+  storage: storage, // Apontando para a nuvem
 };

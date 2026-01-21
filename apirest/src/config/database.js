@@ -16,8 +16,16 @@ export default {
     updatedAt: "updated_at",
   },
   dialectOptions: {
-    allowPublicKeyRetrieval: true,
+    ssl: {
+      rejectUnauthorized: false // Essencial para o TiDB Cloud em PaaS
+    },
     timezone: "-03:00",
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
   },
   timezone: "-03:00",
 };
